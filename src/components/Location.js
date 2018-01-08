@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Location = ({ coords }) => (
+const Location = ({ location }) => (
 	<li>
-		{coords.lat}, {coords.long}
+		{location.city}, {location.country}
 	</li>
 )
 
 Location.propTypes = {
   coords: PropTypes.shape({
-      lat: PropTypes.string.isRequired,
-      long: PropTypes.string.isRequired
+      city: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired
     }).isRequired, 
 }
 

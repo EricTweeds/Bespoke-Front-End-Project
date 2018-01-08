@@ -9,9 +9,7 @@ export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 export const ADD_LOCATION = 'ADD_LOCATION'
 export const GET_WEATHER = 'GET_WEATHER'
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER'
-/*
- * other constants
- */
+export const SELECT_LOCATION = 'SELECT_LOCATION'
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -35,40 +33,51 @@ export function setVisibilityFilter(filter) {
   return { type: SET_VISIBILITY_FILTER, filter }
 }
 
-export function addLocation(coords) {
-	return { type: ADD_LOCATION, coords }
+export function addLocation(location) {
+	return { type: ADD_LOCATION, location }
 }
 
-export function getWeather(coords) {
-	return { type: GET_WEATHER, coords }
+export function getWeather(location) {
+	return { type: GET_WEATHER, location }
 }
 let weatherId = 100;
-export function receiveWeather(coords, json) {
+export function receiveWeather(location, json) {
 	console.log(json)
 	return {
 		type: RECEIVE_WEATHER,
-		coords,
+		location,
 		data: json,
 		receivedAt: Date.now(),
 		id:weatherId ++
 	}
 }
  let link
- let lat
- let long
-export function fetchWeather(coords) {
+ let city
+ let country
+export function fetchWeather(location) {
 	return function (dispatch) {
-		dispatch(getWeather(coords))
-		lat = coords.lat
-		long = coords.long
-		link = 'http://api.openweathermap.org/data/2.5/weather?q=' + lat + ',' + long + 'id=524901&APPID=83e6bc5903c30ca626df2b647221e75f'//= 'https://api.darksky.net/forecast/961d00284ae951c12d1d465857950732/' + lat +',' + long
+		dispatch(getWeather(location))
+		city = location.city
+		country = location.country
+		link = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + country + 'id=524901&APPID=83e6bc5903c30ca626df2b647221e75f'//= 'https://api.darksky.net/forecast/961d00284ae951c12d1d465857950732/' + lat +',' + long
 		return fetch(link, {})
 			.then(
 				response => response.json(),
 				error => console.log('An Error Occured.', error)
 			)
 			.then(json => 
-				dispatch(receiveWeather(coords, json))
+				dispatch(receiveWeather(location, json))
 			)
+	}
+}
+
+export function fetchWeatherIfNeeded(state, location) {
+	const weather = state.weather
+	if (!weather) {
+		return true
+	} else if (weather.isFetching) {
+		return false
+	} else {
+		return false
 	}
 }

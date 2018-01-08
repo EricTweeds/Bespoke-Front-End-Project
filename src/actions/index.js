@@ -25,6 +25,6 @@ export const addLocation = coords => {
   return {
     type:'ADD_LOCATION',
     id: nextLocationId ++,
-    coords
+    location
   }
 }

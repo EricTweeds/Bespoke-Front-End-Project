@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-const Weather = ({json}) => (
-	<li>
-		{json.items}
-	</li>
-)
-
-export default Location
+export default class Weather extends Component {
+	render() {
+		const { data } = this.props
+		return (
+			<li>
+				{data.base}
+			</li>
+		)
+	}
+}

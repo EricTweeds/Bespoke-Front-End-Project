@@ -6,7 +6,8 @@ import {
   VisibilityFilters,
   ADD_LOCATION,
   GET_WEATHER,
-  RECEIVE_WEATHER
+  RECEIVE_WEATHER,
+  SELECT_LOCATION
 } from './actions'
 const { SHOW_ALL } = VisibilityFilters
 
@@ -49,7 +50,7 @@ function locations(state = [], action) {
       return [
         ...state,
         {
-          coords: action.coords,
+          location: action.location,
           id: action.id
         }
       ]
@@ -57,6 +58,16 @@ function locations(state = [], action) {
       return state
   }
 }
+
+function selectedLocation(state= {city:'Toronto', country:'ca'}, action) {
+  switch(action.type) {
+    case SELECT_LOCATION:
+      return action.location
+    default:
+    return state
+  }
+}
+
 function weather(
   state = {
     isFetching: false,
@@ -83,7 +94,7 @@ function weatherByLocation(state = {}, action) {
     case GET_WEATHER:
     case RECEIVE_WEATHER:
       return Object.assign({}, state, {
-        [action.coords]: weather(state[action.coords], action)
+        [action.location]: weather(state[action.location], action)
       })
     default:
       return state
@@ -95,7 +106,8 @@ const rootReducer = combineReducers({
   todos,
   locations,
   weather,
-  weatherByLocation
+  weatherByLocation,
+  selectedLocation
 })
 
 export default rootReducer

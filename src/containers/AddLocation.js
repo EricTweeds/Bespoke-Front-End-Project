@@ -4,31 +4,31 @@ import { addLocation, fetchWeather } from '../actions'
 
 
 let AddLocation = ({ dispatch }) => {
-  let lat
-  let long
+  let city
+  let country
 
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault()
-          if (!lat.value.trim() || !long.value.trim()) {
+          if (!city.value.trim() || !country.value.trim()) {
             return
           }
-          dispatch(addLocation({lat:lat.value, long:long.value}))
-          dispatch(fetchWeather({lat:lat.value, long:long.value}))
-          lat.value = ''
-          long.value = ''
+          dispatch(addLocation({city:city.value, country:country.value}))
+          dispatch(fetchWeather({city:city.value, country:country.value}))
+          city.value = ''
+          country.value = ''
         }}
       >
         <input
           ref={node => {
-            lat = node
+            city = node
           }}
         />
         <input
           ref={node => {
-            long = node
+            country = node
           }}
         />
         <button type="submit">
