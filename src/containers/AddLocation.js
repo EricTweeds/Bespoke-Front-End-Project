@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addLocation } from '../actions'
+import { addLocation, fetchWeather } from '../actions'
+
 
 let AddLocation = ({ dispatch }) => {
   let lat
@@ -15,6 +16,7 @@ let AddLocation = ({ dispatch }) => {
             return
           }
           dispatch(addLocation({lat:lat.value, long:long.value}))
+          dispatch(fetchWeather({lat:lat.value, long:long.value}))
           lat.value = ''
           long.value = ''
         }}

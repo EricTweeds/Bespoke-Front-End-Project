@@ -3,7 +3,8 @@ import WeatherReports from '../components/WeatherReports'
 
 const mapStateToProps = state => {
   return {
-    locations: state.locations
+    locations: state.locations,
+    weather: state.weather
    }
 }
 

@@ -57,7 +57,6 @@ function locations(state = [], action) {
       return state
   }
 }
-
 function weather(
   state = {
     isFetching: false,
@@ -71,8 +70,9 @@ function weather(
       case RECEIVE_WEATHER:
         return Object.assign({}, state, {
           isFetching: false,
-          items: action.posts,
-          lastUpdated:action.receivedAt
+          items: action.data,
+          lastUpdated:action.receivedAt,
+          id: action.id
         })
       default:
       return state
@@ -90,6 +90,16 @@ function weatherByLocation(state = {}, action) {
   }
 }
 
+const rootReducer = combineReducers({
+  visibilityFilter,
+  todos,
+  locations,
+  weather,
+  weatherByLocation
+})
+
+export default rootReducer
+/*
 const todoApp = combineReducers({
   visibilityFilter,
   todos,
@@ -98,4 +108,4 @@ const todoApp = combineReducers({
   weatherByLocation
 })
 
-export default todoApp
+export default todoApp*/
