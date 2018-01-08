@@ -8,18 +8,21 @@ const listStyle = {
 };
 export default class WeatherReports extends Component {
   render() {
+    const { weather } = this.props
     return (
-      <ul>
-        <div>
-          <AddLocation
-          onChange={this.handleChange}/>
-          {!this.props.weather &&
-            'loading...'}
-          {this.props.weather &&
-            <Weather key={this.props.weather.id} data={this.props.weather}/>
-          }
-        </div>
-      </ul>
+      <div>
+        <AddLocation
+            onChange={this.handleChange}/>
+        <ul>
+          <div>
+            {!weather &&
+              'loading...'}
+            {weather &&
+              <Weather key={weather.id} data={weather.items}/>
+            }
+          </div>
+        </ul>
+      </div>
     )
   }
 }

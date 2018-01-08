@@ -21,7 +21,7 @@ export const toggleTodo = id => {
     id
   }
 }
-export const addLocation = coords => {
+export const addLocation = location => {
   return {
     type:'ADD_LOCATION',
     id: nextLocationId ++,

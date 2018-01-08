@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 
 export default class Weather extends Component {
 	render() {
-		const { data } = this.props
 		return (
 			<li>
-				{data.base}
+				{'temperature is ' + Math.round((this.props.weather.temp - 273)*100)/100 }&deg;C
 			</li>
 		)
 	}

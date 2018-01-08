@@ -2,6 +2,7 @@
  * action types
  */
 import fetch from 'cross-fetch'
+import weather from './reducers/weather';
 
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
@@ -46,7 +47,7 @@ export function receiveWeather(location, json) {
 	return {
 		type: RECEIVE_WEATHER,
 		location,
-		data: json,
+		weather: json.main,
 		receivedAt: Date.now(),
 		id:weatherId ++
 	}
@@ -70,14 +71,20 @@ export function fetchWeather(location) {
 			)
 	}
 }
-
-export function fetchWeatherIfNeeded(state, location) {
-	const weather = state.weather
+function shouldFetchWeather(state, location) {
+	const weather = state.weatherByLocation[location]
 	if (!weather) {
 		return true
 	} else if (weather.isFetching) {
 		return false
 	} else {
 		return false
+	}
+}
+export function fetchWeatherIfNeeded(location) {
+	return (dispatch, getState) => {
+		if (shouldFetchWeather(getState(), location)) {
+			return dispatch(fetchWeather(location))
+		}
 	}
 }

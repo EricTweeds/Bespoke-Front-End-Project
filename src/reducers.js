@@ -81,12 +81,12 @@ function weather(
       case RECEIVE_WEATHER:
         return Object.assign({}, state, {
           isFetching: false,
-          items: action.data,
+          items: action.weather,
           lastUpdated:action.receivedAt,
           id: action.id
         })
       default:
-      return state
+        return state
   }
 }
 function weatherByLocation(state = {}, action) {
@@ -102,10 +102,6 @@ function weatherByLocation(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  visibilityFilter,
-  todos,
-  locations,
-  weather,
   weatherByLocation,
   selectedLocation
 })
