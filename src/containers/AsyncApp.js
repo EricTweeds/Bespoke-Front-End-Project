@@ -14,6 +14,10 @@ import Weather from '../components/Weather'
 import WeatherReports from '../components/WeatherReports'
 import AddLocation from './AddLocation';
 
+const listStyle = {
+    listStyle: 'none'
+};
+
 class AsyncApp extends Component {
     constructor(props) {
         super(props)
@@ -48,10 +52,10 @@ class AsyncApp extends Component {
         return (
             <div>
             <AddLocation onChange={this.handleChange} />
-            <ul>
+            <ul style={listStyle}>
                 {isFetching && weather.length ===0 && <h2>Loading...</h2>}
                 {!isFetching && weather.length ===0 && <h2>Empty</h2>}
-                {weather && <Weather weather ={weather}/>}
+                {weather && <Weather weather ={weather} location = {selectedLocation}/>}
             </ul>
             </div>
         )
@@ -59,7 +63,7 @@ class AsyncApp extends Component {
 }
 
 function mapStateToProps(state) {
-    const { selectedLocation, weatherByLocation } = state
+    const { selectedLocation, weatherByLocation, locations } = state
     const {
         isFetching,
         lastUpdated,
@@ -72,7 +76,8 @@ function mapStateToProps(state) {
         selectedLocation,
         weather,
         isFetching,
-        lastUpdated
+        lastUpdated,
+        locations
     }
 }
 

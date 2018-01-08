@@ -51,7 +51,6 @@ function locations(state = [], action) {
         ...state,
         {
           location: action.location,
-          id: action.id
         }
       ]
     default:
@@ -79,12 +78,14 @@ function weather(
       case GET_WEATHER:
         return Object.assign({}, state, {isFetching: true})
       case RECEIVE_WEATHER:
-        return Object.assign({}, state, {
+        return (
+          Object.assign({}, state, {
           isFetching: false,
           items: action.weather,
+          location: action.location,
           lastUpdated:action.receivedAt,
           id: action.id
-        })
+          }))
       default:
         return state
   }
@@ -103,7 +104,8 @@ function weatherByLocation(state = {}, action) {
 
 const rootReducer = combineReducers({
   weatherByLocation,
-  selectedLocation
+  selectedLocation,
+  locations
 })
 
 export default rootReducer

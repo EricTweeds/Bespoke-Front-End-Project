@@ -37,13 +37,11 @@ export function setVisibilityFilter(filter) {
 export function addLocation(location) {
 	return { type: ADD_LOCATION, location }
 }
-
 export function getWeather(location) {
 	return { type: GET_WEATHER, location }
 }
 let weatherId = 100;
 export function receiveWeather(location, json) {
-	console.log(json)
 	return {
 		type: RECEIVE_WEATHER,
 		location,
