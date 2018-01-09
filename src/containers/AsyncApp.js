@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import {
   getWeather,
   receiveWeather,
@@ -50,7 +51,6 @@ class AsyncApp extends Component {
         const { selectedLocation, weather, isFetching, lastUpdated, locations } = this.props
         return (
             <div>
-            <Header/>
             <AddLocation onChange={this.handleChange} />
             {isFetching && weather.length ===0 && <h2>Loading...</h2>}
             {!isFetching && weather.length ===0 && <h2>Empty</h2>}
@@ -79,4 +79,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(AsyncApp)
+export default withRouter(connect(mapStateToProps)(AsyncApp))

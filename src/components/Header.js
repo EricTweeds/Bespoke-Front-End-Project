@@ -29,7 +29,7 @@ export default class Header extends Component {
     render() {
         return (
             <ul style = {listStyle}>
-                <li style = {elementStyle}><Link filter='home'><h3 style = {textStyle}>Home</h3></Link></li>
+                <li style = {elementStyle}><Link filter='weather'><h3 style = {textStyle}>Weather</h3></Link></li>
                 <li style = {elementStyle}><Link filter='todo'><h3 style = {textStyle}>ToDo</h3></Link></li>
             </ul>
         )

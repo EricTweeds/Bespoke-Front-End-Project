@@ -1,11 +1,12 @@
 import React from 'react'
 import Header from '../components/Header'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 const Todo = () => (
   <div>
-      <Header/>
       <h1>Hello World</h1>
   </div>
 )
 
-export default Todo
+export default withRouter(connect()(Todo))

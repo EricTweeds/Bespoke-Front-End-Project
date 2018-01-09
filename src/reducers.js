@@ -20,7 +20,7 @@ function locations(state = [], action) {
   }
 }
 
-function selectedLocation(state= {city:'Toronto', country:'ca'}, action) {
+function selectedLocation(state= {}, action) {
   switch(action.type) {
     case SELECT_LOCATION:
       return action.location
