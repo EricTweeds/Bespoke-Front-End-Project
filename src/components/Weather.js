@@ -38,7 +38,7 @@ export default class Weather extends Component {
 		}
 		return (
 			<span>
-				{list}
+				{ list }
 			</span>
 		)
 	}

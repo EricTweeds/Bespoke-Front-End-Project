@@ -9,7 +9,7 @@ import {
   fetchWeatherIfNeeded,
   selectedLocation
 } from '../actions'
-
+import Header from '../components/Header'
 import Weather from '../components/Weather'
 import AddLocation from './AddLocation'
 
@@ -50,6 +50,7 @@ class AsyncApp extends Component {
         const { selectedLocation, weather, isFetching, lastUpdated, locations } = this.props
         return (
             <div>
+            <Header/>
             <AddLocation onChange={this.handleChange} />
             {isFetching && weather.length ===0 && <h2>Loading...</h2>}
             {!isFetching && weather.length ===0 && <h2>Empty</h2>}
