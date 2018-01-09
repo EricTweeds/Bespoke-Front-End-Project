@@ -2,11 +2,7 @@
  * action types
  */
 import fetch from 'cross-fetch'
-import weather from './reducers/weather';
 
-export const ADD_TODO = 'ADD_TODO'
-export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 export const ADD_LOCATION = 'ADD_LOCATION'
 export const GET_WEATHER = 'GET_WEATHER'
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER'
@@ -22,25 +18,13 @@ export const VisibilityFilters = {
  * action creators
  */
 
-export function addTodo(text) {
-  return { type: ADD_TODO, text }
-}
-
-export function toggleTodo(index) {
-  return { type: TOGGLE_TODO, index }
-}
-
-export function setVisibilityFilter(filter) {
-  return { type: SET_VISIBILITY_FILTER, filter }
-}
-
 export function addLocation(location) {
 	return { type: ADD_LOCATION, location }
 }
 export function getWeather(location) {
 	return { type: GET_WEATHER, location }
 }
-let weatherId = 100;
+let weatherId = 1;
 export function receiveWeather(location, json) {
 	return {
 		type: RECEIVE_WEATHER,

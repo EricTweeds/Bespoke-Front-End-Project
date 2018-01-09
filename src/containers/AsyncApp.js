@@ -11,7 +11,6 @@ import {
 } from '../actions'
 
 import Weather from '../components/Weather'
-import WeatherReports from '../components/WeatherReports'
 import AddLocation from './AddLocation';
 
 const listStyle = {
