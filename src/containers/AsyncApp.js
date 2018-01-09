@@ -11,7 +11,7 @@ import {
 } from '../actions'
 
 import Weather from '../components/Weather'
-import AddLocation from './AddLocation';
+import AddLocation from './AddLocation'
 
 const listStyle = {
     listStyle: 'none'
