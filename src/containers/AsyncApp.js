@@ -51,11 +51,9 @@ class AsyncApp extends Component {
         return (
             <div>
             <AddLocation onChange={this.handleChange} />
-            <ul style={listStyle}>
-                {isFetching && weather.length ===0 && <h2>Loading...</h2>}
-                {!isFetching && weather.length ===0 && <h2>Empty</h2>}
-                {weather && <Weather weather ={weather} locations = {locations}/>}
-            </ul>
+            {isFetching && weather.length ===0 && <h2>Loading...</h2>}
+            {!isFetching && weather.length ===0 && <h2>Empty</h2>}
+            {weather && <Weather weather ={weather} locations = {locations}/>}
             </div>
         )
     }

@@ -6,7 +6,9 @@ const inputStyle = {
   margin: '10px'
 }
 const buttonStyle = {
-  margin: '10px'
+  margin: '10px',
+  borderRadius: '100%',
+  padding: '10px'
 }
 let AddLocation = ({ dispatch }) => {
   let city
