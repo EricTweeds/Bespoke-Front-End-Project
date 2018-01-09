@@ -48,14 +48,14 @@ class AsyncApp extends Component {
     }
 
     render() {
-        const { selectedLocation, weather, isFetching, lastUpdated, locations, weatherByLocation } = this.props
+        const { selectedLocation, weather, isFetching, lastUpdated, locations } = this.props
         return (
             <div>
             <AddLocation onChange={this.handleChange} />
             <ul style={listStyle}>
                 {isFetching && weather.length ===0 && <h2>Loading...</h2>}
                 {!isFetching && weather.length ===0 && <h2>Empty</h2>}
-                {weather && <Weather weatherByLocation ={weatherByLocation} locations = {locations}/>}
+                {weather && <Weather weather ={weather} locations = {locations}/>}
             </ul>
             </div>
         )
@@ -63,11 +63,11 @@ class AsyncApp extends Component {
 }
 
 function mapStateToProps(state) {
-    const { selectedLocation, weatherByLocation, locations } = state
+    const { selectedLocation, weatherByLocation, locations, weather } = state
     const {
         isFetching,
         lastUpdated,
-        items: weather 
+
     } = weatherByLocation[selectedLocation] || {
         isFetching: true,
         items: []

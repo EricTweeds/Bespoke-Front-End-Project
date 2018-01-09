@@ -70,22 +70,29 @@ function selectedLocation(state= {city:'Toronto', country:'ca'}, action) {
 function weather(
   state = {
     isFetching: false,
-    items: []
+    //items: []
   },
   action
   ) {
   switch(action.type) {
       case GET_WEATHER:
-        //return Object.assign({}, state, {isFetching: true})
+        return [...state, {
+          isFetching: true,
+          items: [],
+          location: '',
+          lastUpdated:'',
+          id: 0
+        }]
       case RECEIVE_WEATHER:
-        return (
-          Object.assign({}, state, {
-          isFetching: false,
-          items: action.weather,
-          location: action.location,
-          lastUpdated:action.receivedAt,
-          id: action.id
-          }))
+        return [...state,
+          {
+            isFetching: false,
+            items: action.data,
+            location: action.location,
+            lastUpdated:action.receivedAt,
+            id: action.id
+          }
+        ]
       default:
         return state
   }
@@ -105,7 +112,8 @@ function weatherByLocation(state = {}, action) {
 const rootReducer = combineReducers({
   weatherByLocation,
   selectedLocation,
-  locations
+  locations,
+  weather
 })
 
 export default rootReducer

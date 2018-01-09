@@ -45,7 +45,7 @@ export function receiveWeather(location, json) {
 	return {
 		type: RECEIVE_WEATHER,
 		location,
-		weather: json.main,
+		data: json.main,
 		receivedAt: Date.now(),
 		id:weatherId ++
 	}
