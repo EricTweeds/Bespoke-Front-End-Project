@@ -24,7 +24,7 @@ export function addLocation(location) {
 export function getWeather(location) {
 	return { type: GET_WEATHER, location }
 }
-let weatherId = 100;
+let weatherId = 1;
 export function receiveWeather(location, json) {
 	return {
 		type: RECEIVE_WEATHER,
