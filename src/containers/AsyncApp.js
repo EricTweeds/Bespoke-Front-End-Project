@@ -48,14 +48,14 @@ class AsyncApp extends Component {
     }
 
     render() {
-        const { selectedLocation, weather, isFetching, lastUpdated } = this.props
+        const { selectedLocation, weather, isFetching, lastUpdated, locations, weatherByLocation } = this.props
         return (
             <div>
             <AddLocation onChange={this.handleChange} />
             <ul style={listStyle}>
                 {isFetching && weather.length ===0 && <h2>Loading...</h2>}
                 {!isFetching && weather.length ===0 && <h2>Empty</h2>}
-                {weather && <Weather weather ={weather} location = {selectedLocation}/>}
+                {weather && <Weather weatherByLocation ={weatherByLocation} locations = {locations}/>}
             </ul>
             </div>
         )

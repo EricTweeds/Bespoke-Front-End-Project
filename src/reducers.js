@@ -76,7 +76,7 @@ function weather(
   ) {
   switch(action.type) {
       case GET_WEATHER:
-        return Object.assign({}, state, {isFetching: true})
+        //return Object.assign({}, state, {isFetching: true})
       case RECEIVE_WEATHER:
         return (
           Object.assign({}, state, {
@@ -94,9 +94,9 @@ function weatherByLocation(state = {}, action) {
   switch(action.type) {
     case GET_WEATHER:
     case RECEIVE_WEATHER:
-      return Object.assign({}, state, {
+      return [Object.assign({}, state, {
         [action.location]: weather(state[action.location], action)
-      })
+      })]
     default:
       return state
   }
