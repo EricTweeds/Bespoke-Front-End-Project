@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from '../containers/Link'
 
+//styles
 const container = {
 	border: 'solid',
 	padding: '10px',
@@ -16,6 +17,7 @@ const title = {
 export default class Weather extends Component {
 	render() {
 		var list = []
+		//.map was not working so went old school
 		for(var i = 2; i < this.props.weather.length; i++) {
 			if (!this.props.weather[i].isFetching && this.props.weather[i].items) {
 				list.push(

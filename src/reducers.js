@@ -59,6 +59,7 @@ function weather(
         return state
   }
 }
+
 function weatherByLocation(state = {}, action) {
   switch(action.type) {
     case GET_WEATHER:

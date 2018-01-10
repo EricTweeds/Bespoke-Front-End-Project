@@ -25,6 +25,7 @@ export function getWeather(location) {
 	return { type: GET_WEATHER, location }
 }
 let weatherId = 1;
+//called after promise when data is received from api
 export function receiveWeather(location, json) {
 	return {
 		type: RECEIVE_WEATHER,
@@ -37,8 +38,11 @@ export function receiveWeather(location, json) {
  let link
  let city
  let country
+
+//requests data for the specified location from the openWeatherMap api
 export function fetchWeather(location) {
 	return function (dispatch) {
+		//Notifies state that weather is being fetched
 		dispatch(getWeather(location))
 		city = location.city
 		country = location.country
@@ -49,10 +53,13 @@ export function fetchWeather(location) {
 				error => console.log('An Error Occured.', error)
 			)
 			.then(json => 
+				//calls for the received data to be processed
 				dispatch(receiveWeather(location, json))
 			)
 	}
 }
+
+//Checks to ensure the data for the location was received
 function shouldFetchWeather(state, location) {
 	const weather = state.weatherByLocation[location]
 	if (!weather) {
