@@ -3,7 +3,8 @@ import {
   ADD_LOCATION,
   GET_WEATHER,
   RECEIVE_WEATHER,
-  SELECT_LOCATION
+  SELECT_LOCATION,
+  WEATHER_FETCH_SUCCEEDED
 } from './actions'
 
 function locations(state = [], action) {
@@ -45,11 +46,11 @@ function weather(
           lastUpdated:'',
           id: 0
         }]
-      case RECEIVE_WEATHER:
+      case WEATHER_FETCH_SUCCEEDED:
         return [...state,
           {
             isFetching: false,
-            items: action.data,
+            items: action.weather,
             location: action.location,
             lastUpdated:action.receivedAt,
             id: action.id

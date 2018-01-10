@@ -26,25 +26,26 @@ class AsyncApp extends Component {
     }
     componentDidMount() {
         const { dispatch, selectedLocation } = this.props
-        dispatch(fetchWeatherIfNeeded(selectedLocation))
+        dispatch(fetchWeatherIfNeeded(selectedLocation, dispatch))
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.selectedLocation !== prevProps.selectedLocation) {
             const { dispatch, selectedLocation } = this.props
-            dispatch(fetchWeatherIfNeeded(selectedLocation))
+            dispatch(fetchWeatherIfNeeded(selectedLocation, dispatch))
         }
     }
     
     handleChange(nextLocation) {
+        const { dispatch } = this.props
         this.props.dispatch(AddLocation(nextLocation))
-        this.props.dispatch(fetchWeatherIfNeeded(nextLocation))
+        this.props.dispatch(fetchWeatherIfNeeded(nextLocation, dispatch))
     }
 
     handleRefreshClick(e) {
         e.preventDefault()
         const {dispatch, selectedLocation} = this.props
-        dispatch(fetchWeatherIfNeeded(selectedLocation))
+        dispatch(fetchWeatherIfNeeded(selectedLocation, dispatch))
     }
 
     render() {

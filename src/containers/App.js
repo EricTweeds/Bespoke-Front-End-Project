@@ -5,10 +5,21 @@ import Todo from './Todo'
 import Header from '../components/Header';
 import PageNotFound from '../components/PageNotFound'
 import Switch from 'react-router-dom/Switch';
-import configureStore from '../configureStore'
 import { Provider } from 'react-redux'
+import mySaga from '../sagas'
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from '../reducers'
 
-const store = configureStore()
+import createSagaMiddleware from 'redux-saga'
+
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(
+    rootReducer,
+    applyMiddleware(sagaMiddleware)
+)
+
+sagaMiddleware.run(mySaga)
 
 class App extends Component {
     render() {

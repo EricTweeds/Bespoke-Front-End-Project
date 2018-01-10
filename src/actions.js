@@ -7,6 +7,7 @@ export const ADD_LOCATION = 'ADD_LOCATION'
 export const GET_WEATHER = 'GET_WEATHER'
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER'
 export const SELECT_LOCATION = 'SELECT_LOCATION'
+export const WEATHER_FETCH_SUCCEEDED = 'WEATHER_FETCH_SUCCEEDED'
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -70,10 +71,8 @@ function shouldFetchWeather(state, location) {
 		return false
 	}
 }
-export function fetchWeatherIfNeeded(location) {
-	return (dispatch, getState) => {
-		if (shouldFetchWeather(getState(), location)) {
-			return dispatch(fetchWeather(location))
-		}
+export function fetchWeatherIfNeeded(location, dispatch, state) {
+	if (shouldFetchWeather(state, location)) {
+		return dispatch({type:"WEATHER_FETCH_REQUEST", payload: location})
 	}
 }
