@@ -6,13 +6,7 @@ import configureStore from './configureStore'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './containers/App'
 
-const store = configureStore()
-
 render((
-      <Provider store={store}>
-	  	<Router>
-			<App/>
-		</Router>
-      </Provider>
+	<App/>
 	), document.getElementById('root'))
 	
