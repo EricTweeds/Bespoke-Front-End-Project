@@ -22,7 +22,9 @@ const textStyle = {
     color: 'black',
     borderRightStyle: 'solid',
     borderBottomStyle: 'solid',
-    borderWidth: '1px'
+    borderWidth: '1px',
+    fontSize: '20px',
+    fontWeight: 'bold'
 
 }
 export default class Header extends Component {
@@ -31,6 +33,7 @@ export default class Header extends Component {
             <ul style = {listStyle}>
                 <li style = {elementStyle}><Link filter='weather'><h3 style = {textStyle}>Weather</h3></Link></li>
                 <li style = {elementStyle}><Link filter='todo'><h3 style = {textStyle}>ToDo</h3></Link></li>
+                <li style = {elementStyle}><a href='https://github.com/EricTweeds/Bespoke-Front-End-Project' style = {textStyle}>Repo</a></li>
             </ul>
         )
     }
