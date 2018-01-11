@@ -6,9 +6,10 @@ import Header from '../components/Header';
 import PageNotFound from '../components/PageNotFound'
 import Switch from 'react-router-dom/Switch';
 import { Provider } from 'react-redux'
-import mySaga from '../sagas'
+import { fetchWeather, fetchWeatherIfNeeded } from '../sagas'
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../reducers'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import createSagaMiddleware from 'redux-saga'
 
@@ -16,10 +17,13 @@ const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(sagaMiddleware)
+    composeWithDevTools(
+        applyMiddleware(sagaMiddleware)
+    )
 )
 
-sagaMiddleware.run(mySaga)
+sagaMiddleware.run(fetchWeather)
+sagaMiddleware.run(fetchWeatherIfNeeded)
 
 class App extends Component {
     render() {
