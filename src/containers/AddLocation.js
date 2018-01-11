@@ -23,7 +23,7 @@ let AddLocation = ({ dispatch }) => {
             return
           }
           dispatch(addLocation({city:city.value, country:country.value}))
-          dispatch(fetchWeather({city:city.value, country:country.value}))
+          dispatch({type:"WEATHER_FETCH_REQUEST", payload: {city:city.value, country: country.value}})
           city.value = ''
           country.value = ''
         }}

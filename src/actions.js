@@ -7,6 +7,8 @@ export const ADD_LOCATION = 'ADD_LOCATION'
 export const GET_WEATHER = 'GET_WEATHER'
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER'
 export const SELECT_LOCATION = 'SELECT_LOCATION'
+export const WEATHER_FETCH_SUCCEEDED = 'WEATHER_FETCH_SUCCEEDED'
+export const WEATHER_FETCH_REQUEST = 'WEATHER_FETCH_REQUEST'
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -21,6 +23,7 @@ export const VisibilityFilters = {
 export function addLocation(location) {
 	return { type: ADD_LOCATION, location }
 }
+/*
 export function getWeather(location) {
 	return { type: GET_WEATHER, location }
 }
@@ -40,7 +43,7 @@ export function receiveWeather(location, json) {
  let country
 
 //requests data for the specified location from the openWeatherMap api
-export function fetchWeather(location) {
+export function fetchWeatherA(location) {
 	return function (dispatch) {
 		//Notifies state that weather is being fetched
 		dispatch(getWeather(location))
@@ -70,10 +73,11 @@ function shouldFetchWeather(state, location) {
 		return false
 	}
 }
-export function fetchWeatherIfNeeded(location) {
+export function fetchWeatherIfNeededA(location) {
 	return (dispatch, getState) => {
 		if (shouldFetchWeather(getState(), location)) {
 			return dispatch(fetchWeather(location))
 		}
 	}
 }
+*/

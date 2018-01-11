@@ -5,10 +5,25 @@ import Todo from './Todo'
 import Header from '../components/Header';
 import PageNotFound from '../components/PageNotFound'
 import Switch from 'react-router-dom/Switch';
-import configureStore from '../configureStore'
 import { Provider } from 'react-redux'
+import { fetchWeather, fetchWeatherIfNeeded } from '../sagas'
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from '../reducers'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-const store = configureStore()
+import createSagaMiddleware from 'redux-saga'
+
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(sagaMiddleware)
+    )
+)
+
+sagaMiddleware.run(fetchWeather)
+sagaMiddleware.run(fetchWeatherIfNeeded)
 
 class App extends Component {
     render() {

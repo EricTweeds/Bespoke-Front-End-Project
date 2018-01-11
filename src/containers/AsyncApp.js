@@ -5,14 +5,12 @@ import { withRouter } from 'react-router-dom'
 import {
   getWeather,
   receiveWeather,
-  fetchWeather,
-  addLocation,
-  fetchWeatherIfNeeded,
-  selectedLocation
+  addLocation
 } from '../actions'
 import Header from '../components/Header'
 import Weather from '../components/Weather'
 import AddLocation from './AddLocation'
+import selectedLocation from '../reducers'
 
 const listStyle = {
     listStyle: 'none'
@@ -26,25 +24,26 @@ class AsyncApp extends Component {
     }
     componentDidMount() {
         const { dispatch, selectedLocation } = this.props
-        dispatch(fetchWeatherIfNeeded(selectedLocation))
+        dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.selectedLocation !== prevProps.selectedLocation) {
             const { dispatch, selectedLocation } = this.props
-            dispatch(fetchWeatherIfNeeded(selectedLocation))
+            dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
         }
     }
     
     handleChange(nextLocation) {
+        const { dispatch } = this.props
         this.props.dispatch(AddLocation(nextLocation))
-        this.props.dispatch(fetchWeatherIfNeeded(nextLocation))
+        this.props.dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
     }
 
     handleRefreshClick(e) {
         e.preventDefault()
         const {dispatch, selectedLocation} = this.props
-        dispatch(fetchWeatherIfNeeded(selectedLocation))
+        dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
     }
 
     render() {

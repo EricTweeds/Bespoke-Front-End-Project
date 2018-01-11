@@ -18,7 +18,8 @@ export default class Weather extends Component {
 	render() {
 		var list = []
 		//.map was not working so went old school
-		for(var i = 2; i < this.props.weather.length; i++) {
+		console.log(this.props.weather)
+		for(var i = 1; i < this.props.weather.length; i++) {
 			if (!this.props.weather[i].isFetching && this.props.weather[i].items) {
 				list.push(
 				<Link filter={this.props.weather[i].location.city}>
