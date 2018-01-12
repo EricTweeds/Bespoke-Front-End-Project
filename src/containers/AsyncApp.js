@@ -3,14 +3,22 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {
-  getWeather,
-  receiveWeather,
-  addLocation
+    weatherRequestIfNeeded,
+    addLocation
 } from '../actions'
 import Header from '../components/Header'
 import Weather from '../components/Weather'
 import AddLocation from './AddLocation'
 import selectedLocation from '../reducers'
+import { bindActionCreators } from 'redux';
+
+import {
+    makeSelectedLocation,
+    makeWeather,
+    makeIsFetching,
+    makeLastUpdated
+} from '../selectors'
+
 
 const listStyle = {
     listStyle: 'none'
@@ -23,58 +31,54 @@ class AsyncApp extends Component {
         this.handleRefreshClick = this.handleRefreshClick.bind(this)
     }
     componentDidMount() {
-        const { dispatch, selectedLocation } = this.props
-        dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
+        weatherRequestIfNeeded(this.props.selectedLocation)
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.selectedLocation !== prevProps.selectedLocation) {
-            const { dispatch, selectedLocation } = this.props
-            dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
+            weatherRequestIfNeeded(this.props.selectedLocation)
         }
     }
     
     handleChange(nextLocation) {
-        const { dispatch } = this.props
-        this.props.dispatch(AddLocation(nextLocation))
-        this.props.dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
+        addLocation(nextLocation)
+        weatherRequestIfNeeded(nextLocation)
     }
 
     handleRefreshClick(e) {
         e.preventDefault()
-        const {dispatch, selectedLocation} = this.props
-        dispatch({type:'WEATHER_FETCH_REQUEST_IF_NEEDED', selectedLocation})
+        weatherRequestIfNeeded(this.props.selectedLocation)
     }
 
     render() {
-        const { weather, isFetching } = this.props
         return (
             <div>
             <AddLocation onChange={this.handleChange} />
-            {isFetching && weather.length ===0 && <h2>Loading...</h2>}
-            {!isFetching && weather.length ===0 && <h2>Empty</h2>}
-            {weather && <Weather weather ={weather}/>}
+            {this.props.isFetching && this.props.weather.length ===0 && <h2>Loading...</h2>}
+            {!this.props.isFetching && this.props.weather.length ===0 && <h2>Empty</h2>}
+            {this.props.weather && <Weather weather ={this.props.weather}/>}
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
-    const { selectedLocation, weatherByLocation, locations, weather } = state
-    const {
-        isFetching,
-        lastUpdated,
-    } = weatherByLocation[selectedLocation] || {
-        isFetching: true,
-        items: []
-    }
+export const mapStateToProps = (state, props) => {
     return {
-        selectedLocation,
-        weather,
-        isFetching,
-        lastUpdated,
-        locations
+        selectedLocation: makeSelectedLocation()(state),
+        weather: makeWeather()(state),
+        isFetching: makeIsFetching()(state),
+        lastUpdated: makeLastUpdated()(state)
     }
 }
 
-export default withRouter(connect(mapStateToProps)(AsyncApp))
+export const mapDispatchToProps = (dispatch) => {
+    return {
+        weatherRequestIfNeeded: bindActionCreators(weatherRequestIfNeeded, dispatch),
+        addLocation: bindActionCreators(addLocation, dispatch)
+    }
+};
+
+export default withRouter(connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AsyncApp))

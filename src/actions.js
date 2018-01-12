@@ -9,20 +9,36 @@ export const RECEIVE_WEATHER = 'RECEIVE_WEATHER'
 export const SELECT_LOCATION = 'SELECT_LOCATION'
 export const WEATHER_FETCH_SUCCEEDED = 'WEATHER_FETCH_SUCCEEDED'
 export const WEATHER_FETCH_REQUEST = 'WEATHER_FETCH_REQUEST'
-
-export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE'
-}
-
+export const WEATHER_FETCH_REQUEST_IF_NEEDED = 'WEATHER_FETCH_REQUEST_IF_NEEDED'
+export const WEATHER_FETCH_FAILED = 'WEATHER_FETCH_FAILED'
 /*
  * action creators
  */
 
-export function addLocation(location) {
-	return { type: ADD_LOCATION, location }
-}
+export const addLocation = (location) => ({
+	type: ADD_LOCATION,
+	location
+})
+
+export const weatherRequest = (location) => ({
+	type:WEATHER_FETCH_REQUEST,
+	location
+})
+
+export const weatherRequestIfNeeded = (location) => ({
+	type:WEATHER_FETCH_REQUEST_IF_NEEDED,
+	location
+})
+
+export const weatherRequestSuccess = (response) => ({
+	type:WEATHER_FETCH_SUCCEEDED,
+	response
+})
+
+export const weatherRequestFailed = (message) => ({
+	type:WEATHER_FETCH_FAILED,
+	message
+})
 /*
 export function getWeather(location) {
 	return { type: GET_WEATHER, location }

@@ -5,7 +5,8 @@ import {
   RECEIVE_WEATHER,
   SELECT_LOCATION,
   WEATHER_FETCH_SUCCEEDED,
-  WEATHER_FETCH_REQUEST
+  WEATHER_FETCH_REQUEST,
+  WEATHER_FETCH_FAILED
 } from './actions'
 
 function locations(state = [], action) {
@@ -27,14 +28,13 @@ function selectedLocation(state= {}, action) {
     case SELECT_LOCATION:
       return action.location
     default:
-    return state
+      return state
   }
 }
 
 function weather(
   state = {
     isFetching: false,
-    //items: []
   },
   action
   ) {
@@ -51,15 +51,27 @@ function weather(
         return [...state,
           {
             isFetching: false,
-            items: action.weather,
-            location: action.location,
-            lastUpdated:action.receivedAt,
-            id: action.id
+            items: action.response.weather,
+            location: action.response.location,
+            lastUpdated:action.response.receivedAt,
+            id: action.response.id,
+            invalid: false
           }
         ]
+      case WEATHER_FETCH_FAILED:
+        return [...state,
+        {
+          isFetching: false,
+          invalid: true
+        }]
       default:
         return state
   }
+}
+
+const defaultWeather = () => {
+  isFetching: true;
+  lastUpdated: undefined
 }
 
 function weatherByLocation(state = {}, action) {
@@ -67,7 +79,7 @@ function weatherByLocation(state = {}, action) {
     case GET_WEATHER:
     case RECEIVE_WEATHER:
       return [Object.assign({}, state, {
-        [action.location]: weather(state[action.location], action)
+        [action.location]: weather(state[action.location], action) ? weather(state[action.location], action) : defaultWeather
       })]
     default:
       return state
