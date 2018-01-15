@@ -1,13 +1,16 @@
 import { call, put, take } from 'redux-saga/effects'
-import {openWeatherMapAPI} from './services'
+import {openWeatherMapAPI, schedulerAPI } from './services'
 
 import {
     WEATHER_FETCH_REQUEST,
     WEATHER_FETCH_REQUEST_IF_NEEDED,
     WEATHER_FETCH_SUCCEEDED,
     WEATHER_FETCH_FAILED,
+    EVENT_FETCH_REQUEST,
     weatherRequestSuccess,
-    weatherRequestFailed  
+    weatherRequestFailed,  
+    eventsRequestSuccess,
+    eventsRequestFailed
 } from './actions'
 
 let weatherId = 1;
@@ -48,4 +51,20 @@ function shouldFetchWeather(state, location) {
 	} else {
 		return false
 	}
+}
+
+export function* fetchEvents() {
+    while (true) {
+        const response = yield take(EVENT_FETCH_REQUEST)
+        yield call(getEvents)
+    }
+}
+
+function* getEvents() {
+    try {
+        const response = yield call(schedulerAPI);
+        yield put(eventsRequestSuccess(response))
+    } catch(e) {
+        yield put(eventsRequestFailed(e.message))
+    }
 }

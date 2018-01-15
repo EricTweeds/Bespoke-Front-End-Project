@@ -10,3 +10,9 @@ export const openWeatherMapAPI = (city, country) => {
     return fetch(link, {})
             .then(parseJSON);
 }
+
+export const schedulerAPI = () => {
+    let link = 'http://192.168.86.209:5000/event/'
+    return fetch(link, {mode: 'cors'})
+            .then(parseJSON)
+}

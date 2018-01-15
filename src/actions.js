@@ -11,6 +11,9 @@ export const WEATHER_FETCH_SUCCEEDED = 'WEATHER_FETCH_SUCCEEDED'
 export const WEATHER_FETCH_REQUEST = 'WEATHER_FETCH_REQUEST'
 export const WEATHER_FETCH_REQUEST_IF_NEEDED = 'WEATHER_FETCH_REQUEST_IF_NEEDED'
 export const WEATHER_FETCH_FAILED = 'WEATHER_FETCH_FAILED'
+export const EVENT_FETCH_REQUEST = 'EVENT_FETCH_REQUEST'
+export const EVENT_FETCH_REQUEST_SUCCESS = 'EVENT_FETCH_REQUEST_SUCCESS'
+export const EVENT_FETCH_REQUEST_FAILED = 'EVENT_FETCH_REQUEST_FAILED'
 /*
  * action creators
  */
@@ -37,6 +40,20 @@ export const weatherRequestSuccess = (response) => ({
 
 export const weatherRequestFailed = (message) => ({
 	type:WEATHER_FETCH_FAILED,
+	message
+})
+
+export const eventsRequest = () => ({
+	type: EVENT_FETCH_REQUEST
+})
+
+export const eventsRequestSuccess = (events) => ({
+	type:EVENT_FETCH_REQUEST_SUCCESS,
+	events
+})
+
+export const eventsRequestFailed = (message) => ({
+	type:EVENT_FETCH_REQUEST_FAILED,
 	message
 })
 /*

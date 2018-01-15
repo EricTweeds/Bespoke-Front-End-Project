@@ -6,7 +6,9 @@ import {
   SELECT_LOCATION,
   WEATHER_FETCH_SUCCEEDED,
   WEATHER_FETCH_REQUEST,
-  WEATHER_FETCH_FAILED
+  WEATHER_FETCH_FAILED,
+  EVENT_FETCH_REQUEST,
+  EVENT_FETCH_REQUEST_SUCCESS
 } from './actions'
 
 function locations(state = [], action) {
@@ -69,6 +71,25 @@ function weather(
   }
 }
 
+function events (state = {isFetching: false}, action) {
+  switch(action.type) {
+    case EVENT_FETCH_REQUEST:
+      return(state, {
+        isFetching: true,
+        events: []
+      })
+    
+    case EVENT_FETCH_REQUEST_SUCCESS:
+      return(state,{
+        isFetching: false,
+        events: action.events
+      })
+    
+    default:
+      return state
+  }
+}
+
 const defaultWeather = () => {
   isFetching: true;
   lastUpdated: undefined
@@ -90,7 +111,8 @@ const rootReducer = combineReducers({
   weatherByLocation,
   selectedLocation,
   locations,
-  weather
+  weather,
+  events
 })
 
 export default rootReducer

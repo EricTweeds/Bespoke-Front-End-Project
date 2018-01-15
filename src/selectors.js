@@ -14,7 +14,8 @@ export const makeWeather = () =>
 export const makeIsFetching = () => 
     createSelector([weatherByLocation()], state => state.isFetching)
 
-   
-
 export const makeLastUpdated = () => 
     createSelector([weatherByLocation()], state => state.lastUpdated)
+
+export const makeEvents = () =>
+    createSelector([selectRoot], state => state.events)

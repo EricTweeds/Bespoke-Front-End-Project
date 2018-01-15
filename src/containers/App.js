@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import AsyncApp from './AsyncApp'
-import Todo from './Todo'
+import Scheduler from './Scheduler'
 import Header from '../components/Header';
 import PageNotFound from '../components/PageNotFound'
 import Switch from 'react-router-dom/Switch';
 import { Provider } from 'react-redux'
-import { fetchWeather, fetchWeatherIfNeeded } from '../sagas'
+import { fetchWeather, fetchWeatherIfNeeded, fetchEvents } from '../sagas'
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../reducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -24,6 +24,7 @@ const store = createStore(
 
 sagaMiddleware.run(fetchWeather)
 sagaMiddleware.run(fetchWeatherIfNeeded)
+sagaMiddleware.run(fetchEvents) 
 
 class App extends Component {
     render() {
@@ -34,7 +35,7 @@ class App extends Component {
                         <Header/>
                         <Switch>
                             <Route exact path="/" component = {AsyncApp}/>
-                            <Route path="/todo" component = {Todo}/>
+                            <Route path="/scheduler" component = {Scheduler}/>
                             <Route path="/weather" component = {AsyncApp}/>
                             <Route component = {PageNotFound}/>
                         </Switch>
