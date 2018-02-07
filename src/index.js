@@ -1,11 +1,11 @@
 import 'babel-polyfill'
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import Root from './containers/Root'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import App from './containers/App'
 
-//let store = createStore(todoApp)
-
-render(
-	<Root />,
-	document.getElementById('root')
-)
+render((
+	<App/>
+	), document.getElementById('root'))
+	

@@ -7,24 +7,61 @@ export const ADD_LOCATION = 'ADD_LOCATION'
 export const GET_WEATHER = 'GET_WEATHER'
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER'
 export const SELECT_LOCATION = 'SELECT_LOCATION'
-
-export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE'
-}
-
+export const WEATHER_FETCH_SUCCEEDED = 'WEATHER_FETCH_SUCCEEDED'
+export const WEATHER_FETCH_REQUEST = 'WEATHER_FETCH_REQUEST'
+export const WEATHER_FETCH_REQUEST_IF_NEEDED = 'WEATHER_FETCH_REQUEST_IF_NEEDED'
+export const WEATHER_FETCH_FAILED = 'WEATHER_FETCH_FAILED'
+export const EVENT_FETCH_REQUEST = 'EVENT_FETCH_REQUEST'
+export const EVENT_FETCH_REQUEST_SUCCESS = 'EVENT_FETCH_REQUEST_SUCCESS'
+export const EVENT_FETCH_REQUEST_FAILED = 'EVENT_FETCH_REQUEST_FAILED'
 /*
  * action creators
  */
 
-export function addLocation(location) {
-	return { type: ADD_LOCATION, location }
-}
+export const addLocation = (location) => ({
+	type: ADD_LOCATION,
+	location
+})
+
+export const weatherRequest = (location) => ({
+	type:WEATHER_FETCH_REQUEST,
+	location
+})
+
+export const weatherRequestIfNeeded = (location) => ({
+	type:WEATHER_FETCH_REQUEST_IF_NEEDED,
+	location
+})
+
+export const weatherRequestSuccess = (response) => ({
+	type:WEATHER_FETCH_SUCCEEDED,
+	response
+})
+
+export const weatherRequestFailed = (message) => ({
+	type:WEATHER_FETCH_FAILED,
+	message
+})
+
+export const eventsRequest = () => ({
+	type: EVENT_FETCH_REQUEST
+})
+
+export const eventsRequestSuccess = (events) => ({
+	type:EVENT_FETCH_REQUEST_SUCCESS,
+	events
+})
+
+export const eventsRequestFailed = (message) => ({
+	type:EVENT_FETCH_REQUEST_FAILED,
+	message
+})
+/*
 export function getWeather(location) {
 	return { type: GET_WEATHER, location }
 }
 let weatherId = 1;
+//called after promise when data is received from api
 export function receiveWeather(location, json) {
 	return {
 		type: RECEIVE_WEATHER,
@@ -37,8 +74,11 @@ export function receiveWeather(location, json) {
  let link
  let city
  let country
-export function fetchWeather(location) {
+
+//requests data for the specified location from the openWeatherMap api
+export function fetchWeatherA(location) {
 	return function (dispatch) {
+		//Notifies state that weather is being fetched
 		dispatch(getWeather(location))
 		city = location.city
 		country = location.country
@@ -49,10 +89,13 @@ export function fetchWeather(location) {
 				error => console.log('An Error Occured.', error)
 			)
 			.then(json => 
+				//calls for the received data to be processed
 				dispatch(receiveWeather(location, json))
 			)
 	}
 }
+
+//Checks to ensure the data for the location was received
 function shouldFetchWeather(state, location) {
 	const weather = state.weatherByLocation[location]
 	if (!weather) {
@@ -63,10 +106,11 @@ function shouldFetchWeather(state, location) {
 		return false
 	}
 }
-export function fetchWeatherIfNeeded(location) {
+export function fetchWeatherIfNeededA(location) {
 	return (dispatch, getState) => {
 		if (shouldFetchWeather(getState(), location)) {
 			return dispatch(fetchWeather(location))
 		}
 	}
 }
+*/

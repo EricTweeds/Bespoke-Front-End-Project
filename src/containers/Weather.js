@@ -7,9 +7,6 @@ const mapStateToProps = state => {
    }
 }
 
-
-const Weather = connect(
-  mapStateToProps,
-)(WeatherReports)
+const Weather = connect(mapStateToProps)(WeatherReports)
 
 export default Weather
